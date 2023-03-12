@@ -14,17 +14,25 @@ Challenge to show Node skill. It creates a backend API to handle message sending
 
 ---
 
+## 😱🪛 Pre-requisites
+
+A Postgres server running locally
+
+---
+
 ## 🖥️ Setup
 
+Clone the repo on your local environment.
+
 Run:
-`npm install`
+`yarn install`
 
 Follow the steps:
 
 1. Create a `.env.local` file on the root of the project based on `.env.default`
-2. Create a `development` app database. `$ createdb <DB_NAME>;`
-3. Execute `$ npm run initial:local`
-4. Start the development server running `$ npm run dev`
+2. Create a `[db_name]` app database same as .env files.
+3. Execute `$ yarn run setup:local`
+4. Start the development server running `$ yarn run dev`
 
 ---
 
@@ -33,19 +41,19 @@ Follow the steps:
 Follow the steps:
 
 1. Create a `.env.test` file on the root of the project based on `.env.default`
-2. Create a `test` app database. `$ createdb <DB_NAME>;`
-3. Execute `$ npm run initial:test`
-4. Run `$ npm test`
+2. Create a `test` app database.
+3. Execute `$ yarn run setup:test`
+4. Run `$ yarn test`
 
 ### Run specific test
 
 Run the command:
 
-`npm test -- -t ['test name']`
+`yarn test -- -t ['test name']`
 
 Example:
 
-`npm test -- -t 'User transactions'`
+`yarn test -- -t 'User transactions'`
 
 ---
 
@@ -53,7 +61,7 @@ Example:
 
 If the project is running on windows run the command:
 
-` npm install -g win-node-env`
+` yarn install -g win-node-env`
 
 ---
 
@@ -61,8 +69,36 @@ If the project is running on windows run the command:
 
 Run the command:
 
-`npm run typeorm migration:[create | generate | run] -- -n [name]`
+`yarn run typeorm migration:[create | generate | run] -- -n [name]`
 
 Example:
 
-`npm run typeorm migration:create -- -n CreateUserRepresentativeTable`
+`yarn run typeorm migration:create -- -n CreateUserRepresentativeTable`
+
+---
+
+## 🔗 Sync models with db
+
+On [ormconfig](./ormconfig.ts) file change
+
+`synchronize: false` => `true`
+
+ANd add the property
+
+`schema: MAIN_SCHEMA`
+
+Run the command
+
+`yarn run typeorm -- schema:sync`
+
+---
+
+## 🪛 Generate migration
+
+On [ormconfig](./ormconfig.ts) Remember to remove
+
+`schema: MAIN_SCHEMA`
+
+Run the command
+
+` yarn run typeorm -- migration:generate -n [migration_name]`
