@@ -3,7 +3,7 @@ import * as httpStatus from 'http-status'
 
 import { HealthMessage } from '~/app/common/types'
 
-const healthController = async (req: Request, res: Response, next: NextFunction): Promise<any> => {
+async function healthController(req: Request, res: Response, next: NextFunction): Promise<any> {
   const upTime = process.uptime()
 
   const healthCheck: HealthMessage = {

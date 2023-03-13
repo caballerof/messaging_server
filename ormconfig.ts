@@ -17,7 +17,7 @@ const connectionOptions: ConnectionOptions = {
   migrations: ['src/database/migrations/*.ts'],
   password: PASSWORD,
   port: PORT,
-  synchronize: true,
+  synchronize: false,
   type: 'postgres',
   username: USER,
 }
