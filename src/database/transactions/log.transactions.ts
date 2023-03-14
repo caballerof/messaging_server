@@ -16,7 +16,6 @@ async function listLogs() {
 
     return logs
   } catch (error) {
-    console.log('🚀 ~ file: log.transactions.ts:19 ~ listLogs ~ error:', error)
     throw new APIException(error, 'Data log error - list')
   }
 }

@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, Timestamp, OneToMany, BaseEntity } from 'typeorm'
 import config from '~/config'
 import { Log } from './logs.model'
+import { Message } from './messages.model'
 import { User } from './users.model'
 
 @Entity({ schema: config.DB.MAIN_SCHEMA })
@@ -39,4 +40,7 @@ export class Category extends BaseEntity {
 
   @OneToMany(() => Log, (log) => log.category)
   log: Log[]
+
+  @OneToMany(() => Message, (message) => message.category)
+  messages: Message[]
 }
