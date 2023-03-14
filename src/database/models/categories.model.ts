@@ -1,8 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, Timestamp, OneToMany, BaseEntity } from 'typeorm'
+import config from '~/config'
 import { Log } from './logs.model'
+import { Message } from './messages.model'
 import { User } from './users.model'
 
-@Entity()
+@Entity({ schema: config.DB.MAIN_SCHEMA })
 export class Category extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number
@@ -31,11 +33,14 @@ export class Category extends BaseEntity {
   public updatedAt: Timestamp
 
   @Column({ type: 'timestamp with time zone', nullable: true })
-  public deletedAt: Timestamp
+  public deletedAt: Timestamp | null
 
   @ManyToMany(() => User, (user) => user.categories)
-  users: User[]
+  user: User[]
 
   @OneToMany(() => Log, (log) => log.category)
   log: Log[]
+
+  @OneToMany(() => Message, (message) => message.category)
+  messages: Message[]
 }
