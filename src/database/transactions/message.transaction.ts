@@ -19,7 +19,6 @@ async function createMessage(text: string, categoryId: number): Promise<ICreateM
     const savedMessage = await messageRepository.save(message)
     return { savedMessage, category }
   } catch (error) {
-    console.log('🚀 ~ file: message.transaction.ts:17 ~ createMessage ~ error:', error)
     throw new Error(error)
   }
 }

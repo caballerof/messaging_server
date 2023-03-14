@@ -33,8 +33,9 @@ if (config.NODE_ENV === 'production') {
     format: developmentFormat,
     level: config.LOGGING.LEVEL,
     transports: [
-      new transports.Console(), 
-      new transports.File({ filename: config.LOGGING.COMBINED_FILE })
+      new transports.Console(),
+      new transports.File({ filename: config.LOGGING.ERROR_FILE, level: 'error' }),
+      new transports.File({ filename: config.LOGGING.COMBINED_FILE }),
     ],
   }
 }

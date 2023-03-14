@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express'
-import { listAllCategories } from '~/database/transactions/categories.transactions'
+import { listAllCategories, listCategoryUsers } from '~/database/transactions/categories.transactions'
 import * as httpStatus from 'http-status'
 
 async function listCategories(req: Request, res: Response, next: NextFunction): Promise<any> {
@@ -12,4 +12,16 @@ async function listCategories(req: Request, res: Response, next: NextFunction): 
   }
 }
 
-export { listCategories }
+async function listCategoryUsersById(req: Request, res: Response, next: NextFunction): Promise<any> {
+  try {
+    const { categoryId } = req.params
+
+    const categories = await listCategoryUsers(Number(categoryId))
+
+    res.status(httpStatus.OK).send(categories)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export { listCategories, listCategoryUsersById }

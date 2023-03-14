@@ -16,4 +16,40 @@ async function listAllCategories() {
   }
 }
 
-export { listAllCategories }
+async function listCategoryUsers(categoryId: number) {
+  try {
+    const categoryRepository = getRepository(Category)
+
+    const categories = await categoryRepository.find({
+      select: ['id', 'name', 'description'],
+      relations: ['user'],
+      where: {
+        id: categoryId,
+      },
+    })
+
+    return categories
+  } catch (error) {
+    throw new APIException(error, 'Data user error - list')
+  }
+}
+
+async function listCategoryUsersWithChannels(categoryId: number) {
+  try {
+    const categoryRepository = getRepository(Category)
+
+    const categories = await categoryRepository.find({
+      select: ['id', 'name', 'description'],
+      relations: ['user', 'user.channels'],
+      where: {
+        id: categoryId,
+      },
+    })
+
+    return categories
+  } catch (error) {
+    throw new APIException(error, 'Data user error - list')
+  }
+}
+
+export { listAllCategories, listCategoryUsers, listCategoryUsersWithChannels }

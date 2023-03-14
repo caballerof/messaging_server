@@ -1,5 +1,5 @@
 interface NotificationStrategy {
-  sendNotification(message: string): void
+  sendNotification(message: string): boolean
 }
 
 export default NotificationStrategy
