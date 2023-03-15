@@ -9,6 +9,7 @@ import PushNotification from '../notification_strategy/strategies/pushNotificati
 import SMSNotification from '../notification_strategy/strategies/smsNotification'
 import { createLog } from '~/database/transactions/log.transactions'
 import logger from '~/app/api/helpers/logging'
+import { wsClient } from '~/index'
 
 async function notify(message: Message, category: Category) {
   // Get all users subscribed to the category
@@ -36,13 +37,10 @@ async function notifyMeThis(channel: string, message: string): Promise<boolean> 
   const context = new ContextNotification()
 
   if (channel === 'sms') {
-    //
     context.setNotificationStrategy(new SMSNotification())
   } else if (channel === 'email') {
-    //
     context.setNotificationStrategy(new EmailNotification())
   } else if (channel === 'push') {
-    //
     context.setNotificationStrategy(new PushNotification())
   }
 
@@ -54,10 +52,17 @@ async function logNotification(message: Message, category: Category, channelId: 
   const user = await User.createQueryBuilder().select().where({ id: userId }).getOne()
   const time = Date.now()
 
-  await createLog(time.toString(), user, channel, category, message)
-  logger.info(
-    `${time} - User: ${user.name} - category: ${category.name} - channel: ${channel.name} - msg: ${message.text}`,
-  )
+  const newLog = await createLog(time.toString(), user, channel, category, message)
+
+  if (newLog) {
+    logger.info(
+      `${time} - User: ${user.name} - category: ${category.name} - channel: ${channel.name} - msg: ${message.text}`,
+    )
+
+    wsClient.send(JSON.stringify(newLog))
+  } else {
+    throw new Error('Error creating log')
+  }
 }
 
 export { notify, logNotification }
