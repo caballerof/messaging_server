@@ -1,4 +1,4 @@
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=3000&center=true&width=435&lines=Messaging+-+messaging+everywhere)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=3000&center=true&width=435&lines=Messaging+-+messaging+everywhere)]
 
 Challenge to show Node skill. It creates a backend API to handle message sending.
 

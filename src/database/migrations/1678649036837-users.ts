@@ -3,7 +3,7 @@ import { usersSeed } from '../seeds/users.seed'
 
 export class users1678649036837 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
-    const users = usersSeed(5)
+    const users = usersSeed(10)
 
     let query = 'INSERT INTO "app"."user" (name, email, "phoneNumber") VALUES '
 
