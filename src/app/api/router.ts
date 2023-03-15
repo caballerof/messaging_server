@@ -4,7 +4,7 @@ import healthRouter from '~/app/api/resources/health'
 import messagesRouter from './resources/messages'
 import categoriesRouter from './resources/categories'
 import userRouter from '~/app/api/resources/users'
-import logsRouter from '~/app/api/resources/logs'
+import logsRouter from '~/app/api/resources/Slogs'
 
 const router = express.Router()
 
