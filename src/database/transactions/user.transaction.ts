@@ -10,7 +10,6 @@ async function listUsers() {
 
     return questions
   } catch (error) {
-    console.log('🚀 ~ file: message.transaction.ts:17 ~ createMessage ~ error:', error)
     throw new Error(error)
   }
 }

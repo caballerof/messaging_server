@@ -12,6 +12,10 @@ async function createMessage(text: string, categoryId: number): Promise<ICreateM
     const messageRepository = getRepository(Message)
     const category = await Category.createQueryBuilder().select().where({ id: categoryId }).getOne()
 
+    if (category == null) {
+      throw new Error('Error inserting message')
+    }
+
     const message = new Message()
     message.text = text
     message.category = category

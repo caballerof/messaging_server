@@ -12,6 +12,9 @@ async function listLogs() {
     const logRepository = getRepository(Log)
     const logs = await logRepository.find({
       relations: ['user', 'channel', 'category', 'message'],
+      order: {
+        time: 'DESC',
+      },
     })
 
     return logs
